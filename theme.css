@@ -1,7 +1,7 @@
 /*
  * Soft Paper — An Obsidian Theme
  * by Nick Milo
- * Version 1.2.4
+ * Version 1.3.0
  *
  * Based on AnuPpuccin by Anubis (https://github.com/AnubisNekhet/AnuPpuccin)
  * AnuPpuccin is licensed under GPL-3.0.
@@ -57,8 +57,8 @@ settings:
     default: false
   -
     id: sp-compact-properties
-    title: Make in-note properties condensed
-    description: Tighter vertical spacing in the properties/metadata section of notes
+    title: Make in-note properties minimal
+    description: Small monospace labels, no dividers. Names right-aligned, values left-aligned, lists flow inline
     type: class-toggle
     default: false
   -
@@ -2272,55 +2272,206 @@ body:is(.sp-compact-panes, .sp-compact-all) [data-type="search"] .search-result-
   padding-bottom: 1px;
 }
 
-/* IN-NOTE PROPERTIES — Condensed Spacing */
-body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property {
+/* IN-NOTE PROPERTIES — Minimal
+   Modeled on the Maps of the Ideaverse menu: small monospace labels,
+   no boxes, no dividers. Names right-aligned in a narrow column,
+   values left-aligned beside them. */
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container {
+  --sp-prop-key-width: 92px;
+  --sp-prop-row: 15px;
+  --sp-prop-font: 500 10px/var(--sp-prop-row) var(--font-monospace);
+  --sp-prop-value-font: 400 11px/var(--sp-prop-row) var(--font-monospace);
+  --metadata-divider-width: 0;
+  --metadata-property-radius: 0;
+  --metadata-property-background-hover: transparent;
+  --metadata-property-box-shadow-hover: none;
+  --metadata-property-box-shadow-focus: none;
+  --metadata-input-height: var(--sp-prop-row);
+  --metadata-label-width: var(--sp-prop-key-width);
   padding-top: 0;
   padding-bottom: 0;
-  min-height: 21px;
+  margin-bottom: 18px;
+  border-bottom: none;
 }
 
-body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-key,
-body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-value {
-  line-height: 1.2;
-  padding-top: 0;
-  padding-bottom: 0;
-  min-height: 20px;
+/* "PROPERTIES" heading as a small eyebrow */
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-properties-heading {
+  padding: 0 0 3px;
+  margin: 0;
+  min-height: 0;
+  gap: 4px;
+}
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-properties-title {
+  font: 500 10px/14px var(--font-monospace);
+  letter-spacing: 0.12em;
+  margin: 0;
+  text-transform: uppercase;
+  color: var(--text-faint);
 }
 
-body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-key input,
-body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-value input,
-body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-value .multi-select-pill-content {
-  line-height: 1.3;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-content,
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-properties {
+  padding: 0;
   gap: 0;
 }
 
-body:is(.sp-compact-properties, .sp-compact-all) .metadata-container {
-  padding-top: 2px;
-  padding-bottom: 4px;
-  margin-bottom: 8px;
+/* One row per property, no borders, no hover box */
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property {
+  padding: 0;
+  min-height: var(--sp-prop-row);
+  border: none;
+  box-shadow: none;
+  background: transparent;
+  align-items: flex-start;
+  column-gap: 12px;
+}
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property:hover .metadata-property-key-input,
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property:focus-within .metadata-property-key-input {
+  color: var(--text-normal);
 }
 
-body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-content {
-  padding-top: 0;
-  padding-bottom: 0;
+/* Names: right-aligned, muted, no icons */
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-key {
+  width: var(--sp-prop-key-width);
+  min-width: var(--sp-prop-key-width);
+  min-height: var(--sp-prop-row);
+  padding: 0;
+  border: none;
+  justify-content: flex-end;
+}
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-icon {
+  display: none;
+}
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-key-input {
+  font: var(--sp-prop-font);
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+  text-align: right;
+  height: var(--sp-prop-row);
+  padding: 0;
+  border: none;
+  background: transparent;
 }
 
-body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-properties-heading {
-  padding-top: 2px;
-  padding-bottom: 2px;
-  min-height: 20px;
+/* Values: left-aligned, same rhythm */
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-value {
+  min-height: var(--sp-prop-row);
+  padding: 0;
+  border: none;
+  font: var(--sp-prop-value-font);
+}
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-value :is(input, .metadata-input-longtext, .metadata-input-number, .multi-select-input) {
+  font: var(--sp-prop-value-font);
+  min-height: var(--sp-prop-row);
+  height: auto;
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-value .metadata-input-longtext {
+  padding: 0;
 }
 
+/* List values flow inline like words, not stacked pills */
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .multi-select-container {
+  padding: 0;
+  gap: 0 8px;
+  min-height: var(--sp-prop-row);
+  border: none;
+  background: transparent;
+}
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .multi-select-pill {
-  padding-top: 0;
-  padding-bottom: 0;
-  margin-top: 0;
-  margin-bottom: 0;
+  font: var(--sp-prop-value-font);
+  height: var(--sp-prop-row);
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .multi-select-pill-content {
+  padding: 0;
+  line-height: var(--sp-prop-row);
+}
+/* Remove buttons appear only on hover */
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .multi-select-pill-remove-button {
+  display: none;
+}
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .multi-select-pill:hover .multi-select-pill-remove-button {
+  display: flex;
+  padding: 0 0 0 3px;
+  --icon-size: 10px;
+}
+/* Separator between list values */
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .multi-select-pill + .multi-select-pill::before {
+  content: "·";
+  color: var(--text-faint);
+  padding-right: 8px;
+}
+
+/* Empty values: quiet gray placeholder */
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container [placeholder]:empty::before,
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.45;
+}
+
+/* Values that carry their own inset (dates, links, tags) start flush */
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-value > :first-child,
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-link,
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-link-inner,
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-input-text.mod-date {
+  margin: 0;
+  padding: 0;
+  min-height: var(--sp-prop-row);
+  line-height: var(--sp-prop-row);
+}
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-link-inner {
+  font: var(--sp-prop-value-font);
+}
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container input[type="date"].metadata-input-text.mod-date {
+  height: var(--sp-prop-row);
+  padding-inline-start: 0;
+  background-image: none;
+}
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-input-text.mod-date::-webkit-calendar-picker-indicator {
+  display: none;
+}
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .multi-select-pill-content {
+  margin: 0;
+}
+/* Edit and link icons beside values: only on hover */
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-link-flair,
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-value .clickable-icon {
+  height: var(--sp-prop-row);
+  padding: 0 2px;
+  margin: 0 0 0 4px;
+  opacity: 0;
+}
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property:hover .metadata-link-flair,
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property:hover .metadata-property-value .clickable-icon {
+  opacity: 1;
+}
+/* Small icons inside values (date link, etc.) */
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-value {
+  --icon-size: 12px;
+}
+
+/* Add-property button sized to the row */
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-add-button {
+  font: var(--sp-prop-font);
+  height: auto;
+  margin: 2px 0 0 calc(var(--sp-prop-key-width) + 12px);
+  padding: 0;
+  gap: 4px;
+  --icon-size: 10px;
+  color: var(--text-faint);
+  opacity: 0.6;
+}
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-add-button:hover {
+  opacity: 1;
+  background: transparent;
 }
 
 /* BODY TEXT — Condensed Spacing */
