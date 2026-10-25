@@ -1,7 +1,7 @@
 /*
  * Soft Paper — An Obsidian Theme
  * by Nick Milo
- * Version 1.3.2
+ * Version 1.3.3
  *
  * Based on AnuPpuccin by Anubis (https://github.com/AnubisNekhet/AnuPpuccin)
  * AnuPpuccin is licensed under GPL-3.0.
@@ -59,6 +59,12 @@ settings:
     id: sp-compact-properties
     title: Make in-note properties minimal
     description: Small monospace labels, no dividers, no "Properties" title (a small chevron collapses them). Icon and name on the left, values beside them, lists flow inline
+    type: class-toggle
+    default: false
+  -
+    id: sp-prop-default-font
+    title: Minimal properties in the default font
+    description: Use Obsidian's interface font instead of monospace
     type: class-toggle
     default: false
   -
@@ -144,6 +150,13 @@ settings:
 
 .metadata-properties-heading {
   --bold-weight: var(--font-medium);
+}
+
+/* Property type icons: turn blue (cyan in dark) on hover, like the ×s. Obsidian uses
+   --icon-color-focused here, which is cream (invisible) in light mode */
+.metadata-property-icon:hover,
+.metadata-property-icon:hover .svg-icon {
+  color: var(--pill-color-remove);
 }
 
 /* Properties bottom divider */
@@ -2294,8 +2307,9 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container {
   /* Names hold 15 characters before the ellipsis */
   --sp-prop-name-chars: 15;
   --sp-prop-button: var(--sp-prop-row);
-  --sp-prop-font: 500 var(--sp-prop-key-size)/var(--sp-prop-row) var(--font-monospace);
-  --sp-prop-value-font: 400 var(--sp-prop-value-size)/var(--sp-prop-row) var(--font-monospace);
+  --sp-prop-face: var(--font-monospace);
+  --sp-prop-font: 500 var(--sp-prop-key-size)/var(--sp-prop-row) var(--sp-prop-face);
+  --sp-prop-value-font: 400 var(--sp-prop-value-size)/var(--sp-prop-row) var(--sp-prop-face);
   --metadata-divider-width: 0;
   --metadata-property-radius: 0;
   --metadata-property-background-hover: transparent;
@@ -2309,6 +2323,11 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container {
   margin-bottom: 18px;
   border-top: 1px solid var(--background-modifier-border);
   border-bottom: 1px solid var(--background-modifier-border);
+}
+
+/* Option: interface font instead of monospace */
+body.sp-prop-default-font:is(.sp-compact-properties, .sp-compact-all) .metadata-container {
+  --sp-prop-face: var(--font-interface);
 }
 
 /* No "Properties" title. The heading becomes a small chevron button in the
@@ -2421,7 +2440,8 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-p
   opacity: 0.9;
 }
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-icon:hover {
-  color: var(--text-normal);
+  color: var(--pill-color-remove);
+  opacity: 1;
 }
 
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-key-input {
@@ -2461,14 +2481,18 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-p
 /* List values flow inline like words, not stacked pills */
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .multi-select-container {
   padding: 0;
-  gap: 0 8px;
+  gap: 0 var(--sp-pill-gap, 8px);
   min-height: var(--sp-prop-row);
   border: none;
   background: transparent;
 }
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .multi-select-pill {
   font: var(--sp-prop-value-font);
-  height: var(--sp-prop-row);
+  /* Grow when a long value wraps (Obsidian 1.10+ wraps instead of "…") */
+  height: auto;
+  min-height: var(--sp-prop-row);
+  max-width: 100%;
+  align-items: flex-start;
   padding: 0;
   margin: 0;
   border: none;
@@ -2479,12 +2503,30 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .multi-sele
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .multi-select-pill-content {
   padding: 0;
   line-height: var(--sp-prop-row);
+  height: auto;
+  min-width: 0;
+}
+/* The empty "type a new value" field shares the last line instead of
+   taking a row of its own; when the list is empty it still shows "Empty" */
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .multi-select-container {
+  --sp-pill-gap: 8px;
+}
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .multi-select-pill ~ .multi-select-input {
+  flex: 1 1 0;
+  min-width: 0;
+  margin-left: calc(-1 * var(--sp-pill-gap));
+  padding-left: var(--sp-pill-gap);
+}
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .multi-select-pill ~ .multi-select-input:focus {
+  min-width: 6ch;
 }
 /* Remove (×) buttons: always shown, in Obsidian's remove color like standard */
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .multi-select-pill-remove-button {
   display: flex;
   align-items: center;
   height: var(--sp-prop-row);
+  flex: none;
+  align-self: flex-start;
   margin: 0;
   padding: 0 0 0 3px;
   --icon-size: calc(var(--sp-prop-value-size) * 0.8);
