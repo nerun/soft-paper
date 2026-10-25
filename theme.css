@@ -2303,11 +2303,12 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container {
   --metadata-input-height: var(--sp-prop-row);
   --metadata-label-width: var(--sp-prop-key-width);
   position: relative;
-  padding-top: 10px;
-  padding-bottom: 0;
+  --sp-prop-pad: 10px;
+  padding-top: var(--sp-prop-pad);
+  padding-bottom: var(--sp-prop-pad);
   margin-bottom: 18px;
   border-top: 1px solid var(--background-modifier-border);
-  border-bottom: none;
+  border-bottom: 1px solid var(--background-modifier-border);
 }
 
 /* No "Properties" title. The heading becomes a small chevron button in the
@@ -2315,7 +2316,7 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container {
    collapse button: chevron up = open, chevron down = collapsed. */
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-properties-heading {
   position: absolute;
-  top: 10px;
+  top: var(--sp-prop-pad);
   left: 0;
   z-index: 1;
   width: var(--sp-prop-button);
@@ -2356,7 +2357,7 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-p
 }
 /* Collapsed: chevron points down, line and button stay, nothing else */
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container.is-collapsed {
-  min-height: calc(var(--sp-prop-row) + 10px);
+  min-height: calc(var(--sp-prop-row) + 2 * var(--sp-prop-pad) + 2px);
 }
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container.is-collapsed .metadata-properties-heading::before {
   transform: translate(-50%, -75%) rotate(225deg);
@@ -2516,7 +2517,7 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-p
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-add-button {
   position: absolute;
   left: 0;
-  bottom: 0;
+  bottom: var(--sp-prop-pad);
   width: var(--sp-prop-button);
   height: var(--sp-prop-button);
   min-height: 0;
@@ -2535,7 +2536,7 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-a
 }
 /* A single property: give the "+" its own row so it doesn't sit on the chevron */
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container[data-property-count="1"]:not(.is-collapsed) {
-  padding-bottom: calc(var(--sp-prop-row) + 2px);
+  padding-bottom: calc(var(--sp-prop-row) + 2px + var(--sp-prop-pad));
 }
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-add-button:hover {
   opacity: 1;
