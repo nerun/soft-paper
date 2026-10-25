@@ -1,7 +1,7 @@
 /*
  * Soft Paper — An Obsidian Theme
  * by Nick Milo
- * Version 1.3.3
+ * Version 1.3.4
  *
  * Based on AnuPpuccin by Anubis (https://github.com/AnubisNekhet/AnuPpuccin)
  * AnuPpuccin is licensed under GPL-3.0.
@@ -2298,8 +2298,8 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container {
   --sp-prop-value-size: var(--sp-prop-size, 13px);
   --sp-prop-key-size: calc(var(--sp-prop-value-size) - 1px);
   --sp-prop-row: calc(var(--sp-prop-value-size) * 1.364);
-  /* Names hold about 15 characters before the ellipsis */
-  --sp-prop-name-chars: 15;
+  /* Names column fits "excalidraw-pl…", like standard Obsidian */
+  --sp-prop-name-width: calc(var(--sp-prop-key-size) * 7.9);
   --sp-prop-button: var(--sp-prop-row);
   --sp-prop-face: var(--font-interface);
   --sp-prop-font: 500 var(--sp-prop-key-size)/var(--sp-prop-row) var(--sp-prop-face);
@@ -2439,7 +2439,7 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-p
   color: var(--text-muted);
   text-align: left;
   flex: none;
-  width: calc(var(--sp-prop-name-chars) * (1ch + 0.02em));
+  width: var(--sp-prop-name-width);
   min-width: 0;
   height: var(--sp-prop-row);
   padding: 0;
