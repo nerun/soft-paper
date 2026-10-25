@@ -62,6 +62,12 @@ settings:
     type: class-toggle
     default: false
   -
+    id: sp-prop-left
+    title: Minimal properties, left-aligned names
+    description: Icon then name, left-aligned like standard Obsidian. Off puts names right-aligned against the values
+    type: class-toggle
+    default: false
+  -
     id: sp-prop-size
     title: Minimal properties text size
     description: Text size for minimal in-note properties. Rows, the names column and the buttons scale with it
@@ -2419,6 +2425,26 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-p
 }
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-icon:hover {
   color: var(--text-normal);
+}
+
+/* Left-aligned variant: icon, then name, both flush left.
+   Chevron and + get their own gutter so they don't sit on the icons. */
+body.sp-prop-left:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-properties {
+  padding-left: calc(var(--sp-prop-button) + 8px);
+}
+body.sp-prop-left:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-key {
+  justify-content: flex-start;
+  width: calc(var(--sp-prop-key-width) - var(--sp-prop-button) - 8px);
+  min-width: calc(var(--sp-prop-key-width) - var(--sp-prop-button) - 8px);
+}
+body.sp-prop-left:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-icon {
+  order: 0;
+  margin: 0 6px 0 0;
+  justify-content: flex-start;
+  width: auto;
+}
+body.sp-prop-left:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-key-input {
+  text-align: left;
 }
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-key-input {
   font: var(--sp-prop-font);
