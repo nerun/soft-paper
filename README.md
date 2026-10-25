@@ -35,8 +35,12 @@ If you install the 3rd-party plugin "Style Settings," I have a few style setting
   - Even tighter spacing (18px rows, matches sidebar panes)
 - **Make sidebar panes condensed**
   - Tighter vertical spacing in Tags, Properties, Backlinks, Outgoing Links, Outline, Bookmarks, and Search panes
-- **Make in-note properties condensed**
-  - Tighter vertical spacing in the properties/metadata section of notes
+- **Make in-note properties minimal**
+  - Smaller text, no dividers and no "Properties" title (a small chevron collapses them). Names and values are the same size, as in standard Obsidian.
+- **Minimal properties text size**
+  - A slider for the text size of minimal properties. The rows and buttons scale with it.
+- **Minimal properties spacing**
+  - A slider that adds space between properties. At 0 they stay tight.
 - **Make body text condensed**
   - Tighter line spacing and paragraph gaps in the editor (keeps font size unchanged)
 - **Make settings popup condensed**
