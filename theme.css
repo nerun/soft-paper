@@ -62,6 +62,16 @@ settings:
     type: class-toggle
     default: false
   -
+    id: sp-prop-size
+    title: Minimal properties text size
+    description: Text size for minimal in-note properties. Rows, the names column and the buttons scale with it
+    type: variable-number-slider
+    default: 11
+    min: 9
+    max: 16
+    step: 0.5
+    format: px
+  -
     id: sp-compact-body
     title: Make body text condensed
     description: Tighter line spacing and paragraph gaps in the editor (keeps font size unchanged)
@@ -2277,10 +2287,14 @@ body:is(.sp-compact-panes, .sp-compact-all) [data-type="search"] .search-result-
    no boxes, no dividers. Names right-aligned in a narrow column,
    values left-aligned beside them. */
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container {
-  --sp-prop-key-width: 92px;
-  --sp-prop-row: 15px;
-  --sp-prop-font: 500 10px/var(--sp-prop-row) var(--font-monospace);
-  --sp-prop-value-font: 400 11px/var(--sp-prop-row) var(--font-monospace);
+  /* One size drives everything (Style Settings slider, default 11px) */
+  --sp-prop-value-size: var(--sp-prop-size, 11px);
+  --sp-prop-key-size: calc(var(--sp-prop-value-size) - 1px);
+  --sp-prop-row: calc(var(--sp-prop-value-size) * 1.364);
+  --sp-prop-key-width: calc(var(--sp-prop-value-size) * 8.364);
+  --sp-prop-button: var(--sp-prop-row);
+  --sp-prop-font: 500 var(--sp-prop-key-size)/var(--sp-prop-row) var(--font-monospace);
+  --sp-prop-value-font: 400 var(--sp-prop-value-size)/var(--sp-prop-row) var(--font-monospace);
   --metadata-divider-width: 0;
   --metadata-property-radius: 0;
   --metadata-property-background-hover: transparent;
@@ -2304,8 +2318,8 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-p
   top: 10px;
   left: 0;
   z-index: 1;
-  width: 15px;
-  height: 15px;
+  width: var(--sp-prop-button);
+  height: var(--sp-prop-button);
   min-height: 0;
   margin: 0;
   padding: 0;
@@ -2334,15 +2348,15 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-p
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 4px;
-  height: 4px;
+  width: calc(var(--sp-prop-button) * 0.27);
+  height: calc(var(--sp-prop-button) * 0.27);
   border-left: 1.25px solid currentColor;
   border-top: 1.25px solid currentColor;
   transform: translate(-50%, -25%) rotate(45deg);
 }
 /* Collapsed: chevron points down, line and button stay, nothing else */
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container.is-collapsed {
-  min-height: 25px;
+  min-height: calc(var(--sp-prop-row) + 10px);
 }
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container.is-collapsed .metadata-properties-heading::before {
   transform: translate(-50%, -75%) rotate(225deg);
@@ -2494,23 +2508,51 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-p
 }
 /* Small icons inside values (date link, etc.) */
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-value {
-  --icon-size: 12px;
+  --icon-size: calc(var(--sp-prop-value-size) * 1.1);
 }
 
-/* Add-property button sized to the row */
+/* Add property: no text, just a "+" button matching the chevron,
+   in the left column on the last property's row */
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-add-button {
-  font: var(--sp-prop-font);
-  height: auto;
-  margin: 2px 0 0 calc(var(--sp-prop-key-width) + 12px);
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: var(--sp-prop-button);
+  height: var(--sp-prop-button);
+  min-height: 0;
+  margin: 0;
   padding: 0;
-  gap: 4px;
-  --icon-size: 10px;
-  color: var(--text-faint);
-  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-muted);
+  opacity: 0.7;
+  --icon-size: calc(var(--sp-prop-button) * 0.67);
+  --icon-stroke: 1.75px;
+}
+/* A single property: give the "+" its own row so it doesn't sit on the chevron */
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container[data-property-count="1"]:not(.is-collapsed) {
+  padding-bottom: calc(var(--sp-prop-row) + 2px);
 }
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-add-button:hover {
   opacity: 1;
+  color: var(--text-normal);
+  border-color: var(--background-modifier-border-hover);
   background: transparent;
+}
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-add-button .text-button-label {
+  display: none;
+}
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-add-button .text-button-icon {
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-add-button .text-button-icon svg {
+  color: currentColor;
 }
 
 /* BODY TEXT — Condensed Spacing */
