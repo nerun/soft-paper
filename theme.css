@@ -58,13 +58,7 @@ settings:
   -
     id: sp-compact-properties
     title: Make in-note properties minimal
-    description: Small monospace labels, no dividers, no "Properties" title (a small chevron collapses them). Icon and name on the left, values beside them, lists flow inline
-    type: class-toggle
-    default: false
-  -
-    id: sp-prop-default-font
-    title: Minimal properties in the default font
-    description: Use Obsidian's interface font instead of monospace
+    description: Small labels, no dividers, no "Properties" title (a small chevron collapses them). Icon and name on the left, values beside them, lists flow inline
     type: class-toggle
     default: false
   -
@@ -2296,7 +2290,7 @@ body:is(.sp-compact-panes, .sp-compact-all) [data-type="search"] .search-result-
 }
 
 /* IN-NOTE PROPERTIES — Minimal
-   Modeled on the Maps of the Ideaverse menu: small monospace labels,
+   Modeled on the Maps of the Ideaverse menu: small labels,
    no boxes, no dividers. Icon and name on the left in a fixed column,
    values beside them. */
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container {
@@ -2304,10 +2298,10 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container {
   --sp-prop-value-size: var(--sp-prop-size, 13px);
   --sp-prop-key-size: calc(var(--sp-prop-value-size) - 1px);
   --sp-prop-row: calc(var(--sp-prop-value-size) * 1.364);
-  /* Names hold 15 characters before the ellipsis */
+  /* Names hold about 15 characters before the ellipsis */
   --sp-prop-name-chars: 15;
   --sp-prop-button: var(--sp-prop-row);
-  --sp-prop-face: var(--font-monospace);
+  --sp-prop-face: var(--font-interface);
   --sp-prop-font: 500 var(--sp-prop-key-size)/var(--sp-prop-row) var(--sp-prop-face);
   --sp-prop-value-font: 400 var(--sp-prop-value-size)/var(--sp-prop-row) var(--sp-prop-face);
   --metadata-divider-width: 0;
@@ -2323,11 +2317,6 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container {
   margin-bottom: 18px;
   border-top: 1px solid var(--background-modifier-border);
   border-bottom: 1px solid var(--background-modifier-border);
-}
-
-/* Option: interface font instead of monospace */
-body.sp-prop-default-font:is(.sp-compact-properties, .sp-compact-all) .metadata-container {
-  --sp-prop-face: var(--font-interface);
 }
 
 /* No "Properties" title. The heading becomes a small chevron button in the
