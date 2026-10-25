@@ -1,7 +1,7 @@
 /*
  * Soft Paper — An Obsidian Theme
  * by Nick Milo
- * Version 1.2.1
+ * Version 1.2.4
  *
  * Based on AnuPpuccin by Anubis (https://github.com/AnubisNekhet/AnuPpuccin)
  * AnuPpuccin is licensed under GPL-3.0.
@@ -1261,6 +1261,15 @@ body.theme-dark:not(.is-mobile) .workspace-split.mod-left-split .workspace-sided
   color: rgb(var(--ctp-overlay2));
 }
 
+/* Dark mode twin: keeps back/forward and view-header icons visible.
+   Without it, the .mod-top-right-space rule paints them surface gray. */
+.theme-dark .view-header .clickable-icon,
+.theme-dark .view-header-nav-buttons .clickable-icon {
+  --icon-color: rgb(var(--ctp-subtext1));
+  --icon-color-hover: rgb(var(--ctp-text));
+  color: rgb(var(--ctp-subtext1));
+}
+
 .theme-light .sidebar-toggle-button,
 .theme-light .sidebar-toggle-button .clickable-icon {
   --icon-color: var(--sp-cream-light);
@@ -2031,6 +2040,16 @@ body .git-tools .clickable-icon:hover {
 .workspace-leaf .graph-controls,
 .workspace-leaf .graph-controls:not(.is-close) {
   background-color: rgb(var(--ctp-mantle));
+}
+
+/* Graph controls icons (restore / close): keep visible on the light panel,
+   even inside the focused pane where --icon-color-focused is cream */
+.graph-controls .clickable-icon,
+.graph-controls .graph-controls-button {
+  --icon-color: rgb(var(--ctp-subtext1));
+  --icon-color-hover: rgb(var(--ctp-text));
+  --icon-color-active: rgb(var(--ctp-text));
+  --icon-color-focused: rgb(var(--ctp-subtext1));
 }
 
 /* Links - internal: no underline; external: keep underline */
