@@ -2480,7 +2480,7 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .multi-sele
   padding: 0;
   line-height: var(--sp-prop-row);
 }
-/* Remove (×) buttons: always shown, small and faint, like standard Obsidian */
+/* Remove (×) buttons: always shown, in Obsidian's remove color like standard */
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .multi-select-pill-remove-button {
   display: flex;
   align-items: center;
@@ -2489,11 +2489,10 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .multi-sele
   padding: 0 0 0 3px;
   --icon-size: calc(var(--sp-prop-value-size) * 0.8);
   --icon-stroke: 2px;
-  color: currentColor;
-  opacity: 0.55;
+  color: var(--pill-color-remove);
 }
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .multi-select-pill-remove-button:hover {
-  opacity: 1;
+  color: var(--pill-color-remove-hover);
 }
 
 /* Empty values: quiet gray placeholder */
