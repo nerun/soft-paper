@@ -58,13 +58,7 @@ settings:
   -
     id: sp-compact-properties
     title: Make in-note properties minimal
-    description: Small monospace labels, no dividers, no "Properties" title (a small chevron collapses them). Names right-aligned, values left-aligned, lists flow inline
-    type: class-toggle
-    default: false
-  -
-    id: sp-prop-left
-    title: Minimal properties, left-aligned names
-    description: Icon then name, left-aligned like standard Obsidian. Off puts names right-aligned against the values
+    description: Small monospace labels, no dividers, no "Properties" title (a small chevron collapses them). Icon and name on the left, values beside them, lists flow inline
     type: class-toggle
     default: false
   -
@@ -2290,8 +2284,8 @@ body:is(.sp-compact-panes, .sp-compact-all) [data-type="search"] .search-result-
 
 /* IN-NOTE PROPERTIES — Minimal
    Modeled on the Maps of the Ideaverse menu: small monospace labels,
-   no boxes, no dividers. Names right-aligned in a narrow column,
-   values left-aligned beside them. */
+   no boxes, no dividers. Icon and name on the left in a fixed column,
+   values beside them. */
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container {
   /* One size drives everything (Style Settings slider, default 13px) */
   --sp-prop-value-size: var(--sp-prop-size, 13px);
@@ -2374,6 +2368,10 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-p
   padding: 0;
   gap: 0;
 }
+/* Gutter on the left for the chevron and + buttons */
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-properties {
+  padding-left: calc(var(--sp-prop-button) + 8px);
+}
 
 /* One row per property, no borders, no hover box */
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property {
@@ -2390,30 +2388,28 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-p
   color: var(--text-normal);
 }
 
-/* Names: right-aligned, muted, no icons */
+/* Names: left-aligned, muted */
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-key {
-  width: var(--sp-prop-key-width);
-  min-width: var(--sp-prop-key-width);
+  width: calc(var(--sp-prop-key-width) - var(--sp-prop-button) - 8px);
+  min-width: calc(var(--sp-prop-key-width) - var(--sp-prop-button) - 8px);
   min-height: var(--sp-prop-row);
   padding: 0;
   border: none;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
-/* Type icons (click for the property menu): their own narrow column
-   between names and values, faint until hovered */
+/* Type icons (click for the property menu): icon, then name, like
+   standard Obsidian. Faint until hovered */
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-key {
   gap: 0;
 }
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-icon {
-  order: 2;
   flex: none;
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: var(--sp-prop-row);
+  justify-content: flex-start;
   height: var(--sp-prop-row);
   min-height: 0;
-  margin: 0 0 0 4px;
+  margin: 0 6px 0 0;
   padding: 0;
   --icon-size: calc(var(--sp-prop-key-size) * 1.05);
   --icon-stroke: 1.75px;
@@ -2427,30 +2423,11 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-p
   color: var(--text-normal);
 }
 
-/* Left-aligned variant: icon, then name, both flush left.
-   Chevron and + get their own gutter so they don't sit on the icons. */
-body.sp-prop-left:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-properties {
-  padding-left: calc(var(--sp-prop-button) + 8px);
-}
-body.sp-prop-left:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-key {
-  justify-content: flex-start;
-  width: calc(var(--sp-prop-key-width) - var(--sp-prop-button) - 8px);
-  min-width: calc(var(--sp-prop-key-width) - var(--sp-prop-button) - 8px);
-}
-body.sp-prop-left:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-icon {
-  order: 0;
-  margin: 0 6px 0 0;
-  justify-content: flex-start;
-  width: auto;
-}
-body.sp-prop-left:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-key-input {
-  text-align: left;
-}
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-key-input {
   font: var(--sp-prop-font);
   letter-spacing: 0.02em;
   color: var(--text-muted);
-  text-align: right;
+  text-align: left;
   height: var(--sp-prop-row);
   padding: 0;
   border: none;
