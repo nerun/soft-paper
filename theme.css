@@ -58,7 +58,7 @@ settings:
   -
     id: sp-compact-properties
     title: Make in-note properties minimal
-    description: Small monospace labels, no dividers. Names right-aligned, values left-aligned, lists flow inline
+    description: Small monospace labels, no dividers, no "Properties" title (a small chevron collapses them). Names right-aligned, values left-aligned, lists flow inline
     type: class-toggle
     default: false
   -
@@ -2288,25 +2288,64 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container {
   --metadata-property-box-shadow-focus: none;
   --metadata-input-height: var(--sp-prop-row);
   --metadata-label-width: var(--sp-prop-key-width);
-  padding-top: 0;
+  position: relative;
+  padding-top: 10px;
   padding-bottom: 0;
   margin-bottom: 18px;
+  border-top: 1px solid var(--background-modifier-border);
   border-bottom: none;
 }
 
-/* "PROPERTIES" heading as a small eyebrow */
+/* No "Properties" title. The heading becomes a small chevron button in the
+   empty space left of the first property, like the Maps of the Ideaverse
+   collapse button: chevron up = open, chevron down = collapsed. */
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-properties-heading {
-  padding: 0 0 3px;
-  margin: 0;
+  position: absolute;
+  top: 10px;
+  left: 0;
+  z-index: 1;
+  width: 15px;
+  height: 15px;
   min-height: 0;
-  gap: 4px;
-}
-body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-properties-title {
-  font: 500 10px/14px var(--font-monospace);
-  letter-spacing: 0.12em;
   margin: 0;
-  text-transform: uppercase;
-  color: var(--text-faint);
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-muted);
+  opacity: 0.7;
+  cursor: pointer;
+}
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-properties-heading:hover {
+  opacity: 1;
+  color: var(--text-normal);
+  border-color: var(--background-modifier-border-hover);
+  background: transparent;
+}
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-properties-title,
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-properties-heading .collapse-indicator {
+  display: none;
+}
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-properties-heading::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  border-left: 1.25px solid currentColor;
+  border-top: 1.25px solid currentColor;
+  transform: translate(-50%, -25%) rotate(45deg);
+}
+/* Collapsed: chevron points down, line and button stay, nothing else */
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container.is-collapsed {
+  min-height: 25px;
+}
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container.is-collapsed .metadata-properties-heading::before {
+  transform: translate(-50%, -75%) rotate(225deg);
 }
 
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-content,
