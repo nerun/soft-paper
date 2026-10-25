@@ -1,7 +1,7 @@
 /*
  * Soft Paper — An Obsidian Theme
  * by Nick Milo
- * Version 1.3.4
+ * Version 1.3.5
  *
  * Based on AnuPpuccin by Anubis (https://github.com/AnubisNekhet/AnuPpuccin)
  * AnuPpuccin is licensed under GPL-3.0.
@@ -2290,7 +2290,7 @@ body:is(.sp-compact-panes, .sp-compact-all) [data-type="search"] .search-result-
 }
 
 /* IN-NOTE PROPERTIES — Minimal
-   Modeled on the Maps of the Ideaverse menu: small labels,
+   Modeled on the Maps of the Ideaverse menu: smaller text in Obsidian's own font,
    no boxes, no dividers. Icon and name on the left in a fixed column,
    values beside them. */
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container {
@@ -2299,11 +2299,8 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container {
   --sp-prop-key-size: calc(var(--sp-prop-value-size) - 1px);
   --sp-prop-row: calc(var(--sp-prop-value-size) * 1.364);
   /* Names column fits "excalidraw-pl…", like standard Obsidian */
-  --sp-prop-name-width: calc(var(--sp-prop-key-size) * 7.9);
+  --sp-prop-name-width: calc(var(--sp-prop-key-size) * 7.5);
   --sp-prop-button: var(--sp-prop-row);
-  --sp-prop-face: var(--font-interface);
-  --sp-prop-font: 500 var(--sp-prop-key-size)/var(--sp-prop-row) var(--sp-prop-face);
-  --sp-prop-value-font: 400 var(--sp-prop-value-size)/var(--sp-prop-row) var(--sp-prop-face);
   --metadata-divider-width: 0;
   --metadata-property-radius: 0;
   --metadata-property-background-hover: transparent;
@@ -2407,7 +2404,7 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-p
   justify-content: flex-start;
 }
 /* Type icons (click for the property menu): icon, then name, like
-   standard Obsidian. Faint until hovered */
+   standard Obsidian, in Obsidian's own icon color */
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-key {
   gap: 0;
 }
@@ -2421,21 +2418,14 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-p
   margin: 0 6px 0 0;
   padding: 0;
   --icon-size: calc(var(--sp-prop-key-size) * 1.05);
-  --icon-stroke: 1.75px;
-  color: var(--text-muted);
-  opacity: 0.45;
-}
-body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property:hover .metadata-property-icon {
-  opacity: 0.9;
 }
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-icon:hover {
   color: var(--pill-color-remove);
-  opacity: 1;
 }
 
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-key-input {
-  font: var(--sp-prop-font);
-  letter-spacing: 0.02em;
+  font-size: var(--sp-prop-key-size);
+  line-height: var(--sp-prop-row);
   color: var(--text-muted);
   text-align: left;
   flex: none;
@@ -2453,10 +2443,12 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-p
   min-height: var(--sp-prop-row);
   padding: 0;
   border: none;
-  font: var(--sp-prop-value-font);
+  font-size: var(--sp-prop-value-size);
+  line-height: var(--sp-prop-row);
 }
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-value :is(input:not([type="checkbox"]), .metadata-input-longtext, .metadata-input-number, .multi-select-input) {
-  font: var(--sp-prop-value-font);
+  font-size: var(--sp-prop-value-size);
+  line-height: var(--sp-prop-row);
   min-height: var(--sp-prop-row);
   height: auto;
   padding: 0;
@@ -2476,7 +2468,8 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .multi-sele
   background: transparent;
 }
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .multi-select-pill {
-  font: var(--sp-prop-value-font);
+  font-size: var(--sp-prop-value-size);
+  line-height: var(--sp-prop-row);
   /* Grow when a long value wraps (Obsidian 1.10+ wraps instead of "…") */
   height: auto;
   min-height: var(--sp-prop-row);
@@ -2544,7 +2537,8 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-i
   line-height: var(--sp-prop-row);
 }
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-link-inner {
-  font: var(--sp-prop-value-font);
+  font-size: var(--sp-prop-value-size);
+  line-height: var(--sp-prop-row);
 }
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container input[type="date"].metadata-input-text.mod-date {
   height: var(--sp-prop-row);
