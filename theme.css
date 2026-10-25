@@ -2291,7 +2291,7 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container {
   --sp-prop-value-size: var(--sp-prop-size, 13px);
   --sp-prop-key-size: calc(var(--sp-prop-value-size) - 1px);
   --sp-prop-row: calc(var(--sp-prop-value-size) * 1.364);
-  --sp-prop-key-width: calc(var(--sp-prop-value-size) * 9.6);
+  --sp-prop-key-width: calc(var(--sp-prop-value-size) * 9.6 + var(--sp-prop-row) + 4px);
   --sp-prop-button: var(--sp-prop-row);
   --sp-prop-font: 500 var(--sp-prop-key-size)/var(--sp-prop-row) var(--font-monospace);
   --sp-prop-value-font: 400 var(--sp-prop-value-size)/var(--sp-prop-row) var(--font-monospace);
@@ -2393,8 +2393,32 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-p
   border: none;
   justify-content: flex-end;
 }
+/* Type icons (click for the property menu): their own narrow column
+   between names and values, faint until hovered */
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-key {
+  gap: 0;
+}
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-icon {
-  display: none;
+  order: 2;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--sp-prop-row);
+  height: var(--sp-prop-row);
+  min-height: 0;
+  margin: 0 0 0 4px;
+  padding: 0;
+  --icon-size: calc(var(--sp-prop-key-size) * 1.05);
+  --icon-stroke: 1.75px;
+  color: var(--text-muted);
+  opacity: 0.45;
+}
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property:hover .metadata-property-icon {
+  opacity: 0.9;
+}
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-icon:hover {
+  color: var(--text-normal);
 }
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-key-input {
   font: var(--sp-prop-font);
@@ -2414,7 +2438,7 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-p
   border: none;
   font: var(--sp-prop-value-font);
 }
-body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-value :is(input, .metadata-input-longtext, .metadata-input-number, .multi-select-input) {
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-value :is(input:not([type="checkbox"]), .metadata-input-longtext, .metadata-input-number, .multi-select-input) {
   font: var(--sp-prop-value-font);
   min-height: var(--sp-prop-row);
   height: auto;
@@ -2495,6 +2519,17 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-i
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .multi-select-pill-content {
   margin: 0;
 }
+/* Checkbox values: small, on the row */
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-value input[type="checkbox"] {
+  --checkbox-size: calc(var(--sp-prop-row) * 0.72);
+  width: var(--checkbox-size);
+  height: var(--checkbox-size);
+  min-width: 0;
+  min-height: 0;
+  border-radius: 3px;
+  margin: calc(var(--sp-prop-row) * 0.14) 0 0;
+}
+
 /* Edit and link icons beside values: only on hover */
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-link-flair,
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-value .clickable-icon {
