@@ -1,7 +1,7 @@
 /*
  * Soft Paper — An Obsidian Theme
  * by Nick Milo
- * Version 1.3.1
+ * Version 1.3.2
  *
  * Based on AnuPpuccin by Anubis (https://github.com/AnubisNekhet/AnuPpuccin)
  * AnuPpuccin is licensed under GPL-3.0.
@@ -2475,20 +2475,20 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .multi-sele
   padding: 0;
   line-height: var(--sp-prop-row);
 }
-/* Remove buttons appear only on hover */
+/* Remove (×) buttons: always shown, small and faint, like standard Obsidian */
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .multi-select-pill-remove-button {
-  display: none;
-}
-body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .multi-select-pill:hover .multi-select-pill-remove-button {
   display: flex;
+  align-items: center;
+  height: var(--sp-prop-row);
+  margin: 0;
   padding: 0 0 0 3px;
-  --icon-size: 10px;
+  --icon-size: calc(var(--sp-prop-value-size) * 0.8);
+  --icon-stroke: 2px;
+  color: currentColor;
+  opacity: 0.55;
 }
-/* Separator between list values */
-body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .multi-select-pill + .multi-select-pill::before {
-  content: "·";
-  color: var(--text-faint);
-  padding-right: 8px;
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .multi-select-pill-remove-button:hover {
+  opacity: 1;
 }
 
 /* Empty values: quiet gray placeholder */
