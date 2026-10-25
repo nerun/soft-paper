@@ -59,6 +59,8 @@ If you install the 3rd-party plugin "Style Settings," I have a few style setting
   - Settings window at 90% opacity so you can see changes live
 - **Rainbow-Colored Folders**
   - Switch from ACE-colored (5 hues) to full 11-color rainbow folders (snippet provided by Joel Anderson)
+- **Turn off folder colors**
+  - Plain file explorer with no colored folders (overrides ACE and rainbow). Useful if you color folders with a plugin
 
 ---
 

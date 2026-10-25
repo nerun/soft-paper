@@ -1,7 +1,7 @@
 /*
  * Soft Paper — An Obsidian Theme
  * by Nick Milo
- * Version 1.4.0
+ * Version 1.5.0
  *
  * Based on AnuPpuccin by Anubis (https://github.com/AnubisNekhet/AnuPpuccin)
  * AnuPpuccin is licensed under GPL-3.0.
@@ -120,6 +120,12 @@ settings:
     id: sp-settings-transparent-80
     title: Make settings more see-through
     description: Settings window at 80% opacity for even more visibility
+    type: class-toggle
+    default: false
+  -
+    id: sp-no-folder-colors
+    title: Turn off folder colors
+    description: Plain file explorer with no colored folders (overrides ACE and rainbow). Useful if you color folders with a plugin
     type: class-toggle
     default: false
   -
@@ -345,7 +351,7 @@ settings:
 }
 
 .theme-light.theme-light {
-  --canvas-color: var(--ctp-overlay0);
+  --canvas-color: rgb(var(--ctp-overlay0));
 }
 
 /*===============================================================
@@ -465,7 +471,7 @@ settings:
 }
 
 .theme-dark.theme-dark {
-  --canvas-color: var(--ctp-overlay0);
+  --canvas-color: rgb(var(--ctp-overlay0));
 }
 
 /* Dark mode inline title */
@@ -1374,34 +1380,34 @@ body.theme-dark:not(.is-mobile) .workspace-split.mod-left-split .workspace-sided
 .theme-light .callout:not([data-callout-metadata*=revert],
 [data-callout=blank-container],
 [data-callout=multi-column]) > .callout-title {
-  background-color: rgba(var(--callout-color), var(--callout-title-opacity, 0.1));
+  background-color: color-mix(in srgb, var(--callout-color) calc(var(--callout-title-opacity, 0.1) * 100%), transparent);
 }
 .theme-dark .callout:not([data-callout-metadata*=revert],
 [data-callout=blank-container],
 [data-callout=multi-column]) > .callout-title {
-  background-color: rgba(var(--callout-color), 0.15);
+  background-color: color-mix(in srgb, var(--callout-color) 15%, transparent);
   padding: var(--size-4-1) var(--size-4-2);
 }
 
 .callout:not([data-callout-metadata*=revert],
 [data-callout=blank-container],
 [data-callout=multi-column]) > .callout-content {
-  border-top: var(--callout-border-width) dashed rgba(var(--callout-color), var(--callout-border-opacity));
+  border-top: var(--callout-border-width) dashed color-mix(in srgb, var(--callout-color) calc(var(--callout-border-opacity) * 100%), transparent);
 }
 
 .callout-content > p:first-child, .callout-content > ul:first-child, .callout-content > ol:first-child { margin-top: 0px; }
 .callout-content > p:last-child, .callout-content > ul:last-child, .callout-content > ol:last-child { margin-bottom: 0px; }
 
 /* Callout Colors */
-.callout[data-callout=abstract], .callout[data-callout=summary], .callout[data-callout=tldr], .callout[data-callout=seealso] { --callout-color: var(--ctp-blue); }
-.callout[data-callout=info], .callout[data-callout=todo], .callout[data-callout=tip], .callout[data-callout=hint], .callout[data-callout=important] { --callout-color: var(--ctp-teal); }
-.callout[data-callout=success], .callout[data-callout=check], .callout[data-callout=done], .callout[data-callout=question], .callout[data-callout=help], .callout[data-callout=faq] { --callout-color: var(--ctp-green); }
-.callout[data-callout=warning], .callout[data-callout=caution], .callout[data-callout=attention] { --callout-color: var(--ctp-yellow); }
-.callout[data-callout=failure], .callout[data-callout=fail], .callout[data-callout=missing] { --callout-color: var(--ctp-maroon); }
-.callout[data-callout=danger], .callout[data-callout=error], .callout[data-callout=bug] { --callout-color: var(--ctp-red); }
-.callout[data-callout=example] { --callout-color: var(--ctp-mauve); }
-.callout[data-callout=quote], .callout[data-callout=cite] { --callout-color: var(--ctp-surface2); }
-.callout[data-callout=note] { --callout-color: var(--ctp-accent); }
+.callout[data-callout=abstract], .callout[data-callout=summary], .callout[data-callout=tldr], .callout[data-callout=seealso] { --callout-color: rgb(var(--ctp-blue)); }
+.callout[data-callout=info], .callout[data-callout=todo], .callout[data-callout=tip], .callout[data-callout=hint], .callout[data-callout=important] { --callout-color: rgb(var(--ctp-teal)); }
+.callout[data-callout=success], .callout[data-callout=check], .callout[data-callout=done], .callout[data-callout=question], .callout[data-callout=help], .callout[data-callout=faq] { --callout-color: rgb(var(--ctp-green)); }
+.callout[data-callout=warning], .callout[data-callout=caution], .callout[data-callout=attention] { --callout-color: rgb(var(--ctp-yellow)); }
+.callout[data-callout=failure], .callout[data-callout=fail], .callout[data-callout=missing] { --callout-color: rgb(var(--ctp-maroon)); }
+.callout[data-callout=danger], .callout[data-callout=error], .callout[data-callout=bug] { --callout-color: rgb(var(--ctp-red)); }
+.callout[data-callout=example] { --callout-color: rgb(var(--ctp-mauve)); }
+.callout[data-callout=quote], .callout[data-callout=cite] { --callout-color: rgb(var(--ctp-surface2)); }
+.callout[data-callout=note] { --callout-color: rgb(var(--ctp-accent)); }
 
 /*===============================================================
  * RAINBOW FOLDERS
@@ -1447,6 +1453,10 @@ body.theme-dark:not(.is-mobile) .workspace-split.mod-left-split .workspace-sided
 .nav-folder-children > .nav-folder:nth-child(11n + 11),
 .nav-files-container > div > .nav-folder:nth-child(11n + 11),
 [data-type="bookmarks"] .tree-item:nth-child(11n + 11) { --rainbow-folder-color: var(--ctp-mauve); }
+
+.nav-folder-children > .nav-folder:nth-child(11n + 12),
+.nav-files-container > div > .nav-folder:nth-child(11n + 12),
+[data-type="bookmarks"] .tree-item:nth-child(11n + 12) { --rainbow-folder-color: var(--ctp-mauve); }
 
 /* Subfolders inherit parent color */
 .nav-files-container .nav-folder.nav-folder .nav-folder,
@@ -1671,6 +1681,55 @@ body.sp-rainbow-folders.theme-dark .nav-files-container .nav-file-title.is-activ
 body.sp-rainbow-folders.theme-dark .nav-files-container .nav-file-title.is-active .nav-file-title-content {
   color: rgb(235, 235, 235);
   font-weight: 600;
+}
+
+/*---------------------------------------------------------------
+ * NO FOLDER COLORS (Style Settings toggle: sp-no-folder-colors)
+ * Plain explorer and bookmarks: no folder tints, Obsidian's own
+ * text and icon colors. Placed after both folder styles so it wins.
+ *---------------------------------------------------------------*/
+body.sp-no-folder-colors.sp-no-folder-colors .nav-files-container > div > .nav-folder,
+body.sp-no-folder-colors.sp-no-folder-colors .nav-files-container > div > .nav-folder > .nav-folder-title,
+body.sp-no-folder-colors.sp-no-folder-colors [data-type="bookmarks"] .tree-item,
+body.sp-no-folder-colors.sp-no-folder-colors [data-type="bookmarks"] .tree-item > .tree-item-self {
+  background-color: transparent;
+}
+body.sp-no-folder-colors.sp-no-folder-colors .nav-files-container .nav-folder-title,
+body.sp-no-folder-colors.sp-no-folder-colors .nav-files-container .nav-folder-title-content,
+body.sp-no-folder-colors.sp-no-folder-colors .nav-files-container .nav-file-title,
+body.sp-no-folder-colors.sp-no-folder-colors .nav-files-container .nav-file-title-content,
+body.sp-no-folder-colors.sp-no-folder-colors .nav-files-container > div > .nav-folder .nav-folder-title,
+body.sp-no-folder-colors.sp-no-folder-colors .nav-files-container > div > .nav-folder .nav-folder-title-content,
+body.sp-no-folder-colors.sp-no-folder-colors .nav-files-container > div > .nav-folder .nav-file-title,
+body.sp-no-folder-colors.sp-no-folder-colors .nav-files-container > div > .nav-folder .nav-file-title-content,
+body.sp-no-folder-colors.sp-no-folder-colors .nav-files-container > div > .nav-folder-children > .nav-file .nav-file-title,
+body.sp-no-folder-colors.sp-no-folder-colors [data-type="bookmarks"] .tree-item-inner {
+  color: var(--nav-item-color);
+  --icon-color: var(--text-muted);
+}
+body.sp-no-folder-colors.sp-no-folder-colors .nav-files-container .collapse-icon svg.svg-icon,
+body.sp-no-folder-colors.sp-no-folder-colors .tree-item-self .tree-item-icon {
+  color: var(--text-faint);
+  --icon-color: var(--text-faint);
+}
+body.sp-no-folder-colors.sp-no-folder-colors:not(.is-grabbing) .nav-files-container .nav-folder-title:hover,
+body.sp-no-folder-colors.sp-no-folder-colors:not(.is-grabbing) .nav-files-container .nav-file-title:hover,
+body.sp-no-folder-colors.sp-no-folder-colors:not(.is-grabbing) .nav-files-container > div > .nav-folder .nav-folder-title:hover,
+body.sp-no-folder-colors.sp-no-folder-colors:not(.is-grabbing) .nav-files-container > div > .nav-folder .nav-file .nav-file-title:hover {
+  color: var(--nav-item-color-hover);
+  background-color: var(--nav-item-background-hover);
+  filter: none;
+}
+body.sp-no-folder-colors.sp-no-folder-colors .nav-files-container .nav-file-title.is-active,
+body.sp-no-folder-colors.sp-no-folder-colors .nav-files-container .nav-file-title.is-active .nav-file-title-content,
+body.sp-no-folder-colors.sp-no-folder-colors:not(.is-grabbing) .nav-files-container > div > .nav-folder .nav-file-title.is-active {
+  color: var(--nav-item-color-active);
+  background-color: var(--nav-item-background-active);
+  border-color: transparent;
+}
+body.sp-no-folder-colors.sp-no-folder-colors .nav-files-container .nav-folder > .nav-folder-children,
+body.sp-no-folder-colors.sp-no-folder-colors .nav-files-container > div > .nav-folder > .nav-folder-children {
+  border-color: var(--background-modifier-border);
 }
 
 /*===============================================================
@@ -2045,6 +2104,31 @@ body.theme-dark .git-tools .tree-item-inner {
   color: var(--text-normal);
   opacity: 1;
   visibility: visible;
+}
+/* Git source control panel: it reuses the file explorer's structure, so
+   the folder-color text (cream/dark) would make its filenames invisible.
+   Use normal text and icon colors, no folder tints. */
+body:is(.theme-light, .theme-dark) .workspace-leaf-content[data-type="git-view"][data-type="git-view"] .view-content .nav-folder-title,
+body:is(.theme-light, .theme-dark) .workspace-leaf-content[data-type="git-view"][data-type="git-view"] .view-content .nav-file-title,
+body:is(.theme-light, .theme-dark) .workspace-leaf-content[data-type="git-view"][data-type="git-view"] .view-content .tree-item-inner,
+body:is(.theme-light, .theme-dark) .workspace-leaf-content[data-type="git-view"][data-type="git-view"] .view-content .nav-folder-title-content,
+body:is(.theme-light, .theme-dark) .workspace-leaf-content[data-type="git-view"][data-type="git-view"] .view-content .nav-file-title-content {
+  color: var(--nav-item-color);
+  --icon-color: var(--text-muted);
+}
+body:is(.theme-light, .theme-dark) .workspace-leaf-content[data-type="git-view"][data-type="git-view"] .view-content .nav-folder,
+body:is(.theme-light, .theme-dark) .workspace-leaf-content[data-type="git-view"][data-type="git-view"] .view-content .nav-folder-title {
+  background-color: transparent;
+}
+body:is(.theme-light, .theme-dark) .workspace-leaf-content[data-type="git-view"][data-type="git-view"] .view-content .collapse-icon svg.svg-icon,
+body:is(.theme-light, .theme-dark) .workspace-leaf-content[data-type="git-view"][data-type="git-view"] .view-content .tree-item-icon {
+  color: var(--text-faint);
+  --icon-color: var(--text-faint);
+}
+body:is(.theme-light, .theme-dark) .workspace-leaf-content[data-type="git-view"][data-type="git-view"] .view-content .nav-folder-title:hover,
+body:is(.theme-light, .theme-dark) .workspace-leaf-content[data-type="git-view"][data-type="git-view"] .view-content .nav-file-title:hover {
+  color: var(--nav-item-color-hover);
+  background-color: var(--nav-item-background-hover);
 }
 body .git-tools .clickable-icon {
   opacity: var(--icon-opacity, 0.7);
