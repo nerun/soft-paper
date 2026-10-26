@@ -1,7 +1,7 @@
 /*
  * Soft Paper — An Obsidian Theme
  * by Nick Milo
- * Version 1.6.2
+ * Version 1.6.3
  *
  * Based on AnuPpuccin by Anubis (https://github.com/AnubisNekhet/AnuPpuccin)
  * AnuPpuccin is licensed under GPL-3.0.
@@ -2634,8 +2634,7 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container input::plac
 /* Values that carry their own inset (dates, links, tags) start flush */
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-value > :first-child,
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-link,
-body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-link-inner,
-body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-input-text.mod-date {
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-link-inner {
   margin: 0;
   padding: 0;
   min-height: var(--sp-prop-row);
@@ -2647,11 +2646,10 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-l
 }
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container input[type="date"].metadata-input-text.mod-date {
   height: var(--sp-prop-row);
-  padding-inline-start: 0;
-  background-image: none;
 }
-body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-input-text.mod-date::-webkit-calendar-picker-indicator {
-  display: none;
+/* Dates and date-times: keep Obsidian's calendar icon, with room for it */
+body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-value input:is([type="date"], [type="datetime-local"]).metadata-input-text {
+  padding-inline-start: calc(var(--icon-size) + 6px);
 }
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .multi-select-pill-content {
   margin: 0;
@@ -2667,17 +2665,12 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-p
   margin: calc(var(--sp-prop-row) * 0.14) 0 0;
 }
 
-/* Edit and link icons beside values: only on hover */
+/* Edit and link icons beside values (date link, edit pencil): always shown, sized to the row */
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-link-flair,
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-value .clickable-icon {
   height: var(--sp-prop-row);
   padding: 0 2px;
   margin: 0 0 0 4px;
-  opacity: 0;
-}
-body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property:hover .metadata-link-flair,
-body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property:hover .metadata-property-value .clickable-icon {
-  opacity: 1;
 }
 /* Small icons inside values (date link, etc.) */
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-property-value {
