@@ -1,7 +1,7 @@
 /*
  * Soft Paper — An Obsidian Theme
  * by Nick Milo
- * Version 1.6.1
+ * Version 1.6.2
  *
  * Based on AnuPpuccin by Anubis (https://github.com/AnubisNekhet/AnuPpuccin)
  * AnuPpuccin is licensed under GPL-3.0.
@@ -1463,9 +1463,9 @@ body.theme-dark:not(.is-mobile) .workspace-split.mod-left-split .workspace-sided
 .nav-files-container > div > .nav-folder:nth-child(11n + 11),
 [data-type="bookmarks"] .tree-item:nth-child(11n + 11) { --rainbow-folder-color: var(--ctp-mauve); }
 
-.nav-folder-children > .nav-folder:nth-child(11n + 12),
-.nav-files-container > div > .nav-folder:nth-child(11n + 12),
-[data-type="bookmarks"] .tree-item:nth-child(11n + 12) { --rainbow-folder-color: var(--ctp-mauve); }
+.nav-folder-children > .nav-folder:nth-child(11n + 1),
+.nav-files-container > div > .nav-folder:nth-child(11n + 1),
+[data-type="bookmarks"] .tree-item:nth-child(11n + 1) { --rainbow-folder-color: var(--ctp-mauve); }
 
 /* Subfolders inherit parent color */
 .nav-files-container .nav-folder.nav-folder .nav-folder,
@@ -1625,9 +1625,9 @@ body:not(.is-grabbing) .nav-files-container > div > .nav-folder .nav-file-title.
 .sp-rainbow-folders .nav-files-container > div > .nav-folder:nth-child(11n + 11),
 .sp-rainbow-folders [data-type="bookmarks"] .tree-item:nth-child(11n + 11) { --rainbow-folder-color: var(--sp-rf-lavender); }
 
-.sp-rainbow-folders .nav-folder-children > .nav-folder:nth-child(11n + 12),
-.sp-rainbow-folders .nav-files-container > div > .nav-folder:nth-child(11n + 12),
-.sp-rainbow-folders [data-type="bookmarks"] .tree-item:nth-child(11n + 12) { --rainbow-folder-color: var(--sp-rf-mauve); }
+.sp-rainbow-folders .nav-folder-children > .nav-folder:nth-child(11n + 1),
+.sp-rainbow-folders .nav-files-container > div > .nav-folder:nth-child(11n + 1),
+.sp-rainbow-folders [data-type="bookmarks"] .tree-item:nth-child(11n + 1) { --rainbow-folder-color: var(--sp-rf-mauve); }
 
 /* Folder title emphasis — stronger tint on the header row */
 .sp-rainbow-folders .nav-files-container > div > .nav-folder > .nav-folder-title {
