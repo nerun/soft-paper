@@ -66,7 +66,7 @@ settings:
     title: Minimal properties text size
     description: Text size for minimal in-note properties. Rows, the names column and the buttons scale with it
     type: variable-number-slider
-    default: 13
+    default: 14
     min: 9
     max: 16
     step: 0.5
@@ -76,7 +76,7 @@ settings:
     title: Minimal properties spacing
     description: Extra space between properties, for minimal in-note properties. 0 keeps them tight
     type: variable-number-slider
-    default: 0
+    default: 6
     min: 0
     max: 12
     step: 1
@@ -2395,8 +2395,8 @@ body:is(.sp-compact-panes, .sp-compact-all) [data-type="search"] .search-result-
    no boxes, no dividers. Icon and name on the left in a fixed column,
    values beside them. */
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container {
-  /* One size drives everything (Style Settings slider, default 13px) */
-  --sp-prop-value-size: var(--sp-prop-size, 13px);
+  /* One size drives everything (Style Settings slider, default 14px) */
+  --sp-prop-value-size: var(--sp-prop-size, 14px);
   --sp-prop-key-size: var(--sp-prop-value-size);   /* names the same size as values, as in standard Obsidian */
   --sp-prop-row: calc(var(--sp-prop-value-size) * 1.364);
   /* Names column fits "excalidraw-pl…", like standard Obsidian */
@@ -2476,7 +2476,7 @@ body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-p
 }
 /* Space between properties (Style Settings slider, default 0: tight) */
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-properties {
-  gap: var(--sp-prop-gap, 0px);
+  gap: var(--sp-prop-gap, 6px);
 }
 /* Gutter on the left for the chevron and + buttons */
 body:is(.sp-compact-properties, .sp-compact-all) .metadata-container .metadata-properties {
