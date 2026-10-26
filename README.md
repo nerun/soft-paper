@@ -61,6 +61,10 @@ If you install the 3rd-party plugin "Style Settings," I have a few style setting
   - Switch from ACE-colored (5 hues) to full 11-color rainbow folders (snippet provided by Joel Anderson)
 - **Turn off folder colors**
   - Plain file explorer with no colored folders (overrides ACE and rainbow). Useful if you color folders with a plugin
+- **Flat frame**
+  - Replace the teal/blue window frame with a neutral background
+- **Heading font**
+  - Font for headings and note titles. By default Soft Paper uses Source Serif Pro. If you don't have it, headings fall back to Georgia; for the intended look, install [Source Serif 4](https://fonts.google.com/specimen/Source+Serif+4) (free)
 
 ---
 
